@@ -1,0 +1,234 @@
+
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+}
+
+const {
+  title = 'Finavit Blog — Nutrition, Food & Wellness',
+  description = 'Evidence-informed guides to nutrition, food, vitamins, and healthier everyday choices.',
+  image = '/blog/social-cover.jpg',
+  type = 'website',
+} = Astro.props;
+
+const pageTitle = title;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+const socialImage = new URL(image, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content="Finavit Journal" />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={socialImage} />
+<meta property="og:image:alt" content="Finavit Journal — Nutrition, Food and Wellness" />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={socialImage} />
+    <link rel="canonical" href={Astro.url.href} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#f8f8f4" />
+    <title>{pageTitle}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/blog/" aria-label="Finavit Blog home">
+        <span class="brand-mark">f</span>
+        <span>finavit<span class="brand-light"> journal</span></span>
+      </a>
+     <nav aria-label="Main navigation">
+  <a href="/blog/">Home</a>
+  <a href="/blog/articles/">All Articles</a>
+  <a href="/blog/category/nutrition/">Nutrition</a>
+  <a href="/blog/category/vitamins/">Vitamins</a>
+  <a href="/blog/category/food/">Food</a>
+  <a href="/blog/category/wellness/">Wellness</a>
+  <a href="https://finavit.com">Finavit ↗</a>
+</nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-top">
+        <a class="brand footer-brand" href="/blog/">
+          <span class="brand-mark">f</span>
+          <span>finavit<span class="brand-light"> journal</span></span>
+        </a>
+        <p>Clearer information. Healthier everyday choices.</p>
+      </div>
+      <div class="footer-bottom">
+        <span>© {new Date().getFullYear()} Finavit</span>
+        <div>
+          <a href="/blog/about/">About</a>
+          <a href="/blog/editorial-policy/">Editorial Policy</a>
+          <a href="/blog/privacy/">Privacy</a>
+<a href="/blog/disclaimer/">Disclaimer</a>
+        <a href="/blog/contact/">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    font-family: 'DM Sans', sans-serif;
+    color: #202820;
+    background: #f8f8f4;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .site-header {
+    min-height: 82px;
+    padding: 0 clamp(22px, 7vw, 110px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    border-bottom: 1px solid #e9eae3;
+    background: #fdfdf9;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    white-space: nowrap;
+  }
+
+  .brand-mark {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
+    background: #244c38;
+    color: white;
+    font-family: 'DM Serif Display', serif;
+    font-size: 25px;
+  }
+
+  .brand-light {
+    color: #849087;
+    font-weight: 400;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 3vw, 34px);
+  }
+
+  nav a,
+  .footer-bottom a {
+    color: #59645c;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  nav a:hover,
+  .footer-bottom a:hover {
+    color: #244c38;
+  }
+
+  .site-footer {
+    margin-top: 100px;
+    padding: 42px clamp(22px, 7vw, 110px) 25px;
+    border-top: 1px solid #e5e8df;
+    background: #fdfdf9;
+  }
+
+  .footer-top,
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .footer-top p {
+    color: #788178;
+    font-size: 13px;
+  }
+
+  .footer-bottom {
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #e9eae3;
+    color: #849087;
+    font-size: 12px;
+  }
+
+  .footer-bottom div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  @media (max-width: 650px) {
+    .site-header {
+      padding-top: 18px;
+      padding-bottom: 18px;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    nav {
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+    }
+
+    .footer-top,
+    .footer-bottom {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>

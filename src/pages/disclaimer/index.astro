@@ -1,0 +1,218 @@
+
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Medical & Health Disclaimer | Finavit Journal"
+  description="Read the Finavit Journal health and nutrition disclaimer, including important information about educational content and professional medical advice."
+>
+  <section class="hero">
+    <span class="eyebrow">IMPORTANT INFORMATION</span>
+    <h1>Health <em>Disclaimer.</em></h1>
+    <p>Understanding the purpose and limitations of the information published on Finavit Journal.</p>
+    <span class="updated">Last updated: November 16, 2026</span>
+  </section>
+
+  <article class="content">
+    <div class="notice">
+      <strong>Please read carefully:</strong>
+      Finavit Journal provides educational information only. Our
+      content is not a substitute for professional medical advice,
+      diagnosis, or treatment.
+    </div>
+
+    <h2>1. Educational Purpose Only</h2>
+    <p>
+      The articles, guides, explanations, and other materials published
+      on Finavit Journal are intended for general educational and
+      informational purposes.
+    </p>
+    <p>
+      Our content discusses topics such as nutrition, food, vitamins,
+      dietary concepts, and general wellness. It is designed to help
+      readers better understand these subjects, not to provide
+      individualized medical care.
+    </p>
+
+    <h2>2. Not Medical Advice</h2>
+    <p>
+      Nothing on this website should be interpreted as medical advice,
+      a diagnosis, a treatment recommendation, or a prescription.
+      Reading our content does not establish a doctor-patient
+      relationship or any other professional healthcare relationship.
+    </p>
+    <p>
+      Always seek the advice of a qualified healthcare professional
+      regarding medical conditions, symptoms, treatments, medications,
+      supplements, or changes to your diet.
+    </p>
+    <p>
+      Never disregard professional medical advice or delay seeking
+      it because of something you have read on this website.
+    </p>
+
+    <h2>3. Nutrition and Dietary Information</h2>
+    <p>
+      Nutritional needs vary between individuals. Factors such as age,
+      health status, lifestyle, medications, allergies, and personal
+      circumstances can affect what is appropriate for a person.
+    </p>
+    <p>
+      Information about nutrients, vitamins, foods, and dietary
+      practices should not be treated as a personalized dietary plan.
+      Consult a registered dietitian or another qualified healthcare
+      professional for advice suited to your circumstances.
+    </p>
+
+    <h2>4. Vitamins and Supplements</h2>
+    <p>
+      Articles discussing vitamins, minerals, and supplements are
+      intended to explain general information and available research.
+      They do not recommend that every reader take a particular
+      supplement or dosage.
+    </p>
+    <p>
+      Supplements may interact with medications or cause unwanted
+      effects. Consult a qualified healthcare professional before
+      starting, stopping, or changing any supplement.
+    </p>
+
+    <h2>5. Accuracy and Scientific Information</h2>
+    <p>
+      We aim to publish clear, useful information informed by credible
+      sources and scientific research. However, medical and nutritional
+      knowledge evolves, and information may become outdated or
+      incomplete.
+    </p>
+    <p>
+      We do not guarantee that every article will always be complete,
+      current, or applicable to every reader.
+    </p>
+
+    <h2>6. AI-Generated Information</h2>
+    <p>
+      Some digital tools available through the wider Finavit platform
+      use artificial intelligence to provide informational responses.
+      AI-generated information can contain errors, omissions, or
+      misleading statements.
+    </p>
+    <p>
+      AI-generated responses should not be relied upon as a substitute
+      for professional medical judgment. Always verify important
+      health-related information with qualified professionals.
+    </p>
+
+    <h2>7. External Links</h2>
+    <p>
+      Our articles may reference or link to external websites,
+      publications, and resources. These links are provided for
+      additional information. We do not control or guarantee the
+      accuracy, availability, or content of external websites.
+    </p>
+
+    <h2>8. Limitation of Responsibility</h2>
+    <p>
+      To the extent permitted by applicable law, Finavit Journal
+      and its operators are not responsible for decisions, actions,
+      or outcomes resulting from reliance on information published
+      on this website.
+    </p>
+    <p>
+      Nothing in this disclaimer excludes or limits any liability
+      that cannot legally be excluded or limited.
+    </p>
+
+    <h2>9. Contact Us</h2>
+    <p>
+      If you have questions about this disclaimer, contact us:
+    </p>
+    <p class="contact">
+      <strong>Email:</strong>
+      <a href="mailto:privacy@finavit.com">privacy@finavit.com</a>
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 85px 24px 65px;
+    text-align: center;
+    background: #f0f2e9;
+  }
+
+  .eyebrow {
+    color: #68806d;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .hero h1 {
+    margin: 22px 0 14px;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(42px, 7vw, 66px);
+    font-weight: 400;
+  }
+
+  .hero h1 em {
+    color: #52745a;
+  }
+
+  .hero p {
+    max-width: 600px;
+    margin: auto;
+    color: #68736a;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .updated {
+    display: block;
+    margin-top: 22px;
+    color: #849087;
+    font-size: 12px;
+  }
+
+  .content {
+    max-width: 790px;
+    margin: 0 auto;
+    padding: 65px 24px 85px;
+  }
+
+  .content h2 {
+    margin: 42px 0 13px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 25px;
+    font-weight: 400;
+  }
+
+  .content p {
+    color: #68736a;
+    font-size: 14px;
+    line-height: 1.95;
+  }
+
+  .content a {
+    color: #315e42;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .notice {
+    padding: 23px;
+    border-left: 3px solid #52745a;
+    border-radius: 4px;
+    background: #f0f2e9;
+    color: #526157;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .contact {
+    padding: 16px 20px;
+    border: 1px solid #e5e8df;
+    border-radius: 8px;
+    background: #fdfdf9;
+  }
+</style>

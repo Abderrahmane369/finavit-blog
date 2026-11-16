@@ -1,0 +1,226 @@
+
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Editorial Policy | Finavit Journal"
+  description="Discover how Finavit Journal researches, writes, reviews, sources, and updates its nutrition and wellness articles."
+>
+  <section class="hero">
+    <span class="eyebrow">OUR EDITORIAL STANDARDS</span>
+    <h1>Editorial <em>Policy.</em></h1>
+    <p>
+      Our approach to researching, writing, sourcing, and maintaining
+      trustworthy nutrition and wellness information.
+    </p>
+    <span class="updated">Last updated: November 16, 2026</span>
+  </section>
+
+  <article class="content">
+    <p class="intro">
+      At Finavit Journal, we believe useful health and nutrition
+      information should be clear, transparent, and grounded in
+      credible evidence. This policy explains the standards we aim
+      to follow when creating and maintaining our content.
+    </p>
+
+    <h2>1. Our Editorial Mission</h2>
+    <p>
+      Our mission is to make information about nutrition, food,
+      vitamins, and everyday wellness easier to understand.
+      We aim to help readers explore these subjects through
+      accessible explanations and practical educational content.
+    </p>
+
+    <h2>2. Research and Sources</h2>
+    <p>
+      We aim to prioritize reliable sources when researching
+      articles. Depending on the topic, these may include:
+    </p>
+    <ul>
+      <li>Peer-reviewed scientific research and academic publications.</li>
+      <li>Government health agencies and public health institutions.</li>
+      <li>Recognized medical and scientific organizations.</li>
+      <li>Universities and established research institutions.</li>
+      <li>Official nutritional databases and scientific references.</li>
+    </ul>
+    <p>
+      We aim to link to relevant original research or authoritative
+      references so readers can explore important claims further.
+    </p>
+
+    <h2>3. Accuracy and Fact-Checking</h2>
+    <p>
+      We aim to check factual claims against credible references
+      before publication. We also strive to distinguish established
+      scientific findings from preliminary research, uncertainty,
+      and emerging evidence.
+    </p>
+    <p>
+      Scientific understanding can change. We therefore cannot
+      guarantee that every article will always be completely
+      current or free from errors.
+    </p>
+
+    <h2>4. Writing and Readability</h2>
+    <p>
+      Our content is written to make complex subjects easier to
+      understand without unnecessarily oversimplifying important
+      scientific details.
+    </p>
+    <p>
+      We aim to use clear language, meaningful headings, practical
+      explanations, and references where appropriate.
+    </p>
+
+    <h2>5. Use of Artificial Intelligence</h2>
+    <p>
+      Artificial intelligence may be used as an editorial
+      assistance tool during research, drafting, organization,
+      or content development.
+    </p>
+    <p>
+      AI-generated material can contain inaccurate or misleading
+      information. We aim to review and verify factual claims
+      against credible sources before publication. AI tools do
+      not replace scientific evidence or qualified professional
+      judgment.
+    </p>
+
+    <h2>6. Updates and Corrections</h2>
+    <p>
+      We aim to review published articles when relevant scientific
+      guidance changes, important new evidence becomes available,
+      or an error is identified.
+    </p>
+    <p>
+      When an article is substantially updated, we may display
+      an updated publication date or an explanation of the change.
+    </p>
+    <p>
+      Readers who identify a possible factual error are encouraged
+      to contact us so we can review it.
+    </p>
+
+    <h2>7. Independence and Transparency</h2>
+    <p>
+      Our goal is to provide useful information without misleading
+      readers or presenting commercial interests as scientific
+      conclusions.
+    </p>
+    <p>
+      If we introduce sponsored content, affiliate relationships,
+      or other commercial arrangements, we aim to disclose them
+      clearly where applicable.
+    </p>
+
+    <h2>8. Medical and Health Limitations</h2>
+    <p>
+      Finavit Journal publishes educational content, not
+      individualized medical advice. Our articles are not a
+      substitute for consultation with qualified healthcare
+      professionals.
+    </p>
+    <p>
+      For more information, please read our
+      <a href="/blog/disclaimer/">Health Disclaimer</a>.
+    </p>
+
+    <h2>9. Contact the Editorial Team</h2>
+    <p>
+      Have a correction, question, or suggestion about one of
+      our articles? We welcome reader feedback.
+    </p>
+    <p class="contact">
+      <strong>Email:</strong>
+      <a href="mailto:privacy@finavit.com">privacy@finavit.com</a>
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 85px 24px 65px;
+    text-align: center;
+    background: #f0f2e9;
+  }
+
+  .eyebrow {
+    color: #68806d;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .hero h1 {
+    margin: 22px 0 14px;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(42px, 7vw, 66px);
+    font-weight: 400;
+  }
+
+  .hero h1 em {
+    color: #52745a;
+  }
+
+  .hero p {
+    max-width: 620px;
+    margin: auto;
+    color: #68736a;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .updated {
+    display: block;
+    margin-top: 22px;
+    color: #849087;
+    font-size: 12px;
+  }
+
+  .content {
+    max-width: 790px;
+    margin: 0 auto;
+    padding: 65px 24px 85px;
+  }
+
+  .content h2 {
+    margin: 42px 0 13px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 25px;
+    font-weight: 400;
+  }
+
+  .content p,
+  .content li {
+    color: #68736a;
+    font-size: 14px;
+    line-height: 1.95;
+  }
+
+  .content ul {
+    padding-left: 24px;
+  }
+
+  .content li {
+    padding: 3px 0;
+  }
+
+  .intro {
+    font-size: 16px !important;
+  }
+
+  .content a {
+    color: #315e42;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .contact {
+    padding: 16px 20px;
+    border: 1px solid #e5e8df;
+    border-radius: 8px;
+    background: #fdfdf9;
+  }
+</style>

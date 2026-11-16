@@ -1,0 +1,323 @@
+
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export function getStaticPaths() {
+  const categoryNames = {
+    nutrition: 'Nutrition',
+    vitamins: 'Vitamins',
+    food: 'Food',
+    wellness: 'Wellness',
+  };
+
+  return Object.entries(categoryNames).map(([slug, name]) => ({
+    params: { category: slug },
+    props: { categoryName: name },
+  }));
+}
+
+const { categoryName } = Astro.props;
+
+const articles = (await getCollection('articles', ({ data }) =>
+  !data.draft && data.category === categoryName
+))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title={`${categoryName} Articles | Finavit`}
+  description={`Explore Finavit's ${categoryName.toLowerCase()} articles, practical guides, and helpful insights.`}
+>
+  <main class="category-page">
+    <header class="page-header">
+      <a class="back-link" href="/blog/articles/">← All articles</a>
+      <span class="eyebrow">EXPLORE BY CATEGORY</span>
+      <h1>{categoryName} <em>articles.</em></h1>
+      <p>
+        Explore our latest {categoryName.toLowerCase()} guides, practical
+        information, and insights to help you make informed choices.
+      </p>
+      <span class="article-count">
+        {articles.length} PUBLISHED ARTICLES
+      </span>
+    </header>
+
+    {articles.length > 0 ? (
+      <section class="article-grid">
+        {articles.map((article) => (
+          <a class="article-card" href={`/blog/${article.id}/`}>
+            {article.data.image ? (
+              <img
+                src={article.data.image}
+                alt={article.data.imageAlt || article.data.title}
+              />
+            ) : (
+              <div class="article-placeholder">✳</div>
+            )}
+
+            <div class="card-content">
+              <span class="category">{article.data.category}</span>
+              <h2>{article.data.title}</h2>
+              <p>{article.data.description}</p>
+
+              <div class="card-bottom">
+                <time datetime={article.data.pubDate.toISOString()}>
+                  {article.data.pubDate.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+                </time>
+                <span>Read article ↗</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </section>
+    ) : (
+      <div class="empty-state">
+        <span>✳</span>
+        <h2>More articles are coming.</h2>
+        <p>
+          We're preparing more {categoryName.toLowerCase()} content.
+          Check back soon!
+        </p>
+        <a href="/blog/articles/">Explore all articles →</a>
+      </div>
+    )}
+
+    <section class="finavit-cta">
+      <span class="eyebrow">GO BEYOND READING</span>
+      <h2>Explore more with Finavit.</h2>
+      <p>
+        Discover nutrition tools, a food library, health insights,
+        and an AI health assistant.
+      </p>
+      <a href="https://finavit.com/" target="_blank" rel="noopener noreferrer">
+        Explore Finavit ↗
+      </a>
+      <small>Most features are free to use, without creating an account.</small>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .category-page {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 75px 28px 100px;
+  }
+
+  .page-header {
+    max-width: 720px;
+    margin-bottom: 45px;
+  }
+
+  .back-link {
+    display: block;
+    margin-bottom: 35px;
+    color: #66846b;
+    font-size: 12px;
+    text-decoration: none;
+  }
+
+  .eyebrow {
+    color: #66846b;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .page-header h1 {
+    margin: 18px 0;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(42px, 6vw, 68px);
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  .page-header h1 em {
+    color: #66846b;
+  }
+
+  .page-header p {
+    max-width: 570px;
+    color: #788178;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .article-count {
+    display: inline-block;
+    margin-top: 20px;
+    color: #879087;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #e7e9e1;
+    background: #fdfdf9;
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .article-card:hover {
+    transform: translateY(-5px);
+    border-color: #a9bca8;
+  }
+
+  .article-card img,
+  .article-placeholder {
+    display: grid;
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    place-items: center;
+    background: #eaf0e7;
+  }
+
+  .article-placeholder {
+    color: #789578;
+    font-size: 42px;
+  }
+
+  .card-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 22px;
+  }
+
+  .category {
+    color: #66846b;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+  }
+
+  .card-content h2 {
+    margin: 13px 0 10px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  .card-content p {
+    color: #788178;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .card-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 18px;
+    color: #879087;
+    font-size: 10px;
+  }
+
+  .card-bottom span {
+    color: #426d4d;
+    font-weight: 600;
+  }
+
+  .empty-state {
+    padding: 65px 20px;
+    background: #f5f7f1;
+    text-align: center;
+  }
+
+  .empty-state > span {
+    color: #789578;
+    font-size: 38px;
+  }
+
+  .empty-state h2 {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+  }
+
+  .empty-state p {
+    color: #788178;
+    font-size: 13px;
+  }
+
+  .empty-state a {
+    display: inline-block;
+    margin-top: 15px;
+    color: #426d4d;
+    font-size: 12px;
+    text-decoration: none;
+  }
+
+  .finavit-cta {
+    margin-top: 85px;
+    padding: 55px 30px;
+    background: #edf2e9;
+    text-align: center;
+  }
+
+  .finavit-cta h2 {
+    margin: 15px 0;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 400;
+  }
+
+  .finavit-cta p {
+    max-width: 550px;
+    margin: 0 auto 25px;
+    color: #788178;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .finavit-cta a {
+    display: inline-block;
+    padding: 14px 25px;
+    background: #426d4d;
+    color: white;
+    font-size: 12px;
+    text-decoration: none;
+  }
+
+  .finavit-cta small {
+    display: block;
+    margin-top: 15px;
+    color: #788178;
+    font-size: 10px;
+  }
+
+  @media (max-width: 900px) {
+    .article-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 600px) {
+    .article-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .category-page {
+      padding: 50px 18px 70px;
+    }
+  }
+</style>

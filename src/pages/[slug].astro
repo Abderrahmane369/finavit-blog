@@ -1,0 +1,271 @@
+
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => {
+    return !data.draft;
+  });
+
+  return articles.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const formattedDate = entry.data.pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const articleUrl = new URL(Astro.url.pathname, Astro.site).href;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: entry.data.pubDate.toISOString(),
+  dateModified: (entry.data.updatedDate || entry.data.pubDate).toISOString(),
+  author: {
+    '@type': 'Organization',
+    name: entry.data.author,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Finavit Journal',
+    url: 'https://finavit.com/blog/',
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': articleUrl,
+  },
+  ...(entry.data.image && {
+    image: new URL(entry.data.image, Astro.site).href,
+  }),
+};
+---
+
+<BaseLayout
+  title={`${entry.data.title} | Finavit Journal`}
+  description={entry.data.description}
+  image={entry.data.image || '/blog/social-cover.jpg'}
+  type="article"
+>
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')}
+/>
+  
+  <article class="article">
+    <a href="/blog/" class="back-link">← Back to the journal</a>
+
+    <header class="article-header">
+      <span class="category">{entry.data.category}</span>
+      <h1>{entry.data.title}</h1>
+      <p class="description">{entry.data.description}</p>
+
+      <div class="article-meta">
+        <span>By {entry.data.author}</span>
+        <span class="separator">·</span>
+        <time datetime={entry.data.pubDate.toISOString()}>
+          {formattedDate}
+        </time>
+      </div>
+    </header>
+
+    {entry.data.image && (
+      <img
+        class="cover-image"
+        src={entry.data.image}
+        alt={entry.data.imageAlt || entry.data.title}
+      />
+    )}
+
+    <div class="article-content">
+      <Content />
+    </div>
+
+    {entry.data.tags.length > 0 && (
+      <div class="tags">
+        <span>TOPICS:</span>
+        {entry.data.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    )}
+
+    <div class="article-footer">
+      <a href="/blog/">Explore more from Finavit Journal ↗</a>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    width: min(100% - 40px, 820px);
+    margin: 0 auto;
+    padding: 65px 0 30px;
+  }
+
+  .back-link {
+    color: #718074;
+    font-size: 13px;
+  }
+
+  .back-link:hover {
+    color: #244c38;
+  }
+
+  .article-header {
+    padding: 55px 0 35px;
+    text-align: center;
+  }
+
+  .category {
+    display: inline-block;
+    padding: 7px 13px;
+    border-radius: 30px;
+    background: #eaf0e7;
+    color: #426348;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .article-header h1 {
+    margin: 24px auto 17px;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(38px, 6vw, 60px);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -1.5px;
+  }
+
+  .description {
+    max-width: 650px;
+    margin: 0 auto;
+    color: #778078;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .article-meta {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+    color: #879087;
+    font-size: 12px;
+  }
+
+  .separator {
+    color: #b3bcb2;
+  }
+
+  .cover-image {
+    display: block;
+    width: 100%;
+    max-height: 430px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+
+  .article-content {
+    padding: 45px 0;
+    color: #465149;
+    font-size: 16px;
+    line-height: 1.95;
+  }
+
+  .article-content :global(h2) {
+    margin: 42px 0 15px;
+    color: #263a2d;
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  .article-content :global(h3) {
+    margin-top: 30px;
+    color: #263a2d;
+    font-size: 20px;
+  }
+
+  .article-content :global(p) {
+    margin-bottom: 20px;
+  }
+
+  .article-content :global(ul),
+  .article-content :global(ol) {
+    padding-left: 25px;
+    margin-bottom: 25px;
+  }
+
+  .article-content :global(li) {
+    padding-left: 5px;
+    margin-bottom: 9px;
+  }
+
+  .article-content :global(a) {
+    color: #426d4d;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px;
+    padding: 25px 0;
+    border-top: 1px solid #e7e9e1;
+    color: #879087;
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+
+  .tag {
+    padding: 7px 11px;
+    border-radius: 20px;
+    background: #edf1e9;
+    color: #526c55;
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+
+  .article-footer {
+    margin-top: 20px;
+    padding: 30px 0;
+    border-top: 1px solid #e7e9e1;
+    text-align: center;
+  }
+
+  .article-footer a {
+    color: #426d4d;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    .article {
+      padding-top: 40px;
+    }
+
+    .article-header {
+      padding-top: 40px;
+    }
+
+    .article-content {
+      font-size: 15px;
+    }
+  }
+</style>
