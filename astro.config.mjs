@@ -4,6 +4,6 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://finavit.com',
-  base: '/',
+  base: '/blog',
   integrations: [sitemap()],
 });
